@@ -96,9 +96,9 @@ def process_file(filename):
         uploaded_files = os.listdir(app.config['UPLOAD_FOLDER'])
         processed_files = {filename: open(os.path.join(app.config['PROCESSED_FOLDER'], filename)).read() for filename in os.listdir(app.config['PROCESSED_FOLDER']) if filename.endswith('.txt')}
         return render_template('index.html', files=uploaded_files, processed_files=processed_files, message='File not found')
-## NOTE, this portion of the code will connect to the machine learning model, currently placeholder
+# Code submits file into machine learning model
 def fun(file_path):
-    #Converts a fasta with a string of AAs into a csv of hydrophobicity values
+   
 
     out = 100*predict(file_path)[0][0] # extract prediction value from 
     out = round(out, 2)

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Molecode: A Proteomics Prediction Model</title>
+{% endblock %}
+
+{% block body %}
+<h1>Upload Your Protein Fasta File!</h1>
+<div class="content">
+    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <input type="submit" value="Upload">
+    </form>
+    {% block upload %}{% endblock %}
+</div>
+<div>
+    <h2>Uploaded Files</h2>
+    <ul>
+        {% for file in files %}
+        <li>
+            <p>{{file}}</p>
+            <form action="{{ url_for('delete_file', filename=file) }}" method="POST">
+                <button type="submit">delete</button>
+            </form>
+            <form action="{{ url_for('process_file', filename=file) }}" method="POST">
+                <button type="submit">process</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div>
+    <h2>Processed Files</h2>
+    <ul>
+        {% for file1, accuracy in processed_files.items() %}
+        <li>
+            <p>{{file1}} - {{accuracy}}</p>
+            <form action="{{ url_for('delete_processed_file', filename=file1) }}" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+    
+{% endblock %}
